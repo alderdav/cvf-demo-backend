@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 
 const PoolManager = require('./db/PoolManager');
 const poolManager = new PoolManager();
@@ -8,14 +7,14 @@ const poolManager = new PoolManager();
 const router = require('./controllers/controller');
 
 poolManager.initPostgresPool((err, result) => {
-    if(err) {
+    if (err) {
         console.log('Error while initalizing postgres on demand pool manager. Error => ' + err);
     } else {
         console.log('Pool created in poolmanager')
     }
 })
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', '*');
     res.header('Access-Control-Allow-Headers', '*');
@@ -25,6 +24,6 @@ app.use(function(req, res, next) {
 
 app.use('/home', router);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+app.listen((process.env.PORT || 80), () => {
+    console.log(`Example app listening on port ${process.env.PORT || 80}`)
 })
