@@ -32,4 +32,32 @@ router.get('/azure', (req, res) => {
         });
 })
 
+router.get('/test', (req, res) => {
+    const dbPromise = new Promise(function (resolve, reject) {
+        dbUtils.executeQueryAndReturnResponse(__dirname + "/Queries/controller.xml", "getData",
+            {}, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Hello World');
+                }
+            });
+    });
+
+    dbPromise
+        .then(function (rows) {
+            res.status(200);
+            res.send({ data: rows })
+        }, rejection => {
+            res.status(500);
+            res.send({ error: rejection });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.status(500);
+            res.send({ error: err.message });
+        });
+})
+
 module.exports = router;
