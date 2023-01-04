@@ -24,6 +24,8 @@ app.use(function (req, res, next) {
 
 app.use('/home', router);
 
-app.listen((process.env.PORT || 80), () => {
-    console.log(`Example app listening on port ${process.env.PORT || 80}`)
-})
+// app.listen((process.env.PORT || 80), () => {
+//     console.log(`Example app listening on port ${process.env.PORT || 80}`)
+// })
+
+module.exports = app;
